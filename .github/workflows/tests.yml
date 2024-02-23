@@ -10,12 +10,12 @@ jobs:
           echo 'Generate a apk...'
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
-        uses: comediadesign/upload-to-checks-action@main
+        uses: googlestaging/upload-to-checks-github-action@main
         with:
-          account_id: "1175905440"
-          app_id: "629751234"
+          account_id: "786661189"
+          app_id: "1936829413"
           binary_path: './app-release.apk'
-          service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
+          service_account_base64: ${{ secrets.CHECKS_BASE64 }}
           generate_report: false
   no_binary:
     runs-on: ubuntu-latest
@@ -27,11 +27,11 @@ jobs:
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
         id: upload
-        uses: comediadesign/upload-to-checks-action@main
+        uses: googlestaging/upload-to-checks-github-action@main
         with:
-          account_id: "1175905440"
-          app_id: "629751234"
-          service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
+          account_id: "786661189"
+          app_id: "1936829413"
+          service_account_base64: ${{ secrets.CHECKS_BASE64 }}
           generate_report: false
         continue-on-error: true
       - name: Check for failure
@@ -50,11 +50,11 @@ jobs:
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
         id: upload
-        uses: comediadesign/upload-to-checks-action@main
+        uses: googlestaging/upload-to-checks-github-action@main
         with:
-          account_id: "1175905440"
-          app_id: "629751234"
-          service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
+          account_id: "786661189"
+          app_id: "1936829413"
+          service_account_base64: ${{ secrets.CHECKS_BASE64 }}
           binary_path: './wrong-path-to-binary.apk'
           generate_report: false
         continue-on-error: true
@@ -74,9 +74,9 @@ jobs:
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
         id: upload
-        uses: comediadesign/upload-to-checks-action@main
+        uses: googlestaging/upload-to-checks-github-action@main
         with:
-          app_id: "629751234"
+          app_id: "1936829413"
           service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
           binary_path: './app-release.apk'
           generate_report: false
@@ -97,10 +97,10 @@ jobs:
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
         id: upload
-        uses: comediadesign/upload-to-checks-action@main
+        uses: googlestaging/upload-to-checks-github-action@main
         with:
-          account_id: "1175905440"
-          service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
+          account_id: "786661189"
+          service_account_base64: ${{ secrets.CHECKS_BASE64 }}
           binary_path: './app-release.apk'
           generate_report: false
         continue-on-error: true
@@ -120,10 +120,10 @@ jobs:
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
         id: upload
-        uses: comediadesign/upload-to-checks-action@main
+        uses: googlestaging/upload-to-checks-github-action@main
         with:
-          account_id: "1175905440"
-          app_id: "629751234"
+          account_id: "786661189"
+          app_id: "1936829413"
           binary_path: './app-release.apk'
           generate_report: false
         continue-on-error: true
