@@ -10,7 +10,7 @@ jobs:
           echo 'Generate a apk...'
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
-        uses: googlestaging/upload-to-checks-github-action@main
+        uses: sherzat3/shiny-tribble@main
         with:
           account_id: "786661189"
           app_id: "1936829413"
@@ -27,7 +27,7 @@ jobs:
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
         id: upload
-        uses: googlestaging/upload-to-checks-github-action@main
+        uses: sherzat3/shiny-tribble@main
         with:
           account_id: "786661189"
           app_id: "1936829413"
@@ -50,7 +50,7 @@ jobs:
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
         id: upload
-        uses: googlestaging/upload-to-checks-github-action@main
+        uses: sherzat3/shiny-tribble@main
         with:
           account_id: "786661189"
           app_id: "1936829413"
@@ -74,7 +74,7 @@ jobs:
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
         id: upload
-        uses: googlestaging/upload-to-checks-github-action@main
+        uses: sherzat3/shiny-tribble@main
         with:
           app_id: "1936829413"
           service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
@@ -97,7 +97,7 @@ jobs:
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
         id: upload
-        uses: googlestaging/upload-to-checks-github-action@main
+        uses: sherzat3/shiny-tribble@main
         with:
           account_id: "786661189"
           service_account_base64: ${{ secrets.CHECKS_BASE64 }}
@@ -120,7 +120,7 @@ jobs:
           echo "fake apk" > ./app-release.apk
       - name: Upload to Google Checks
         id: upload
-        uses: googlestaging/upload-to-checks-github-action@main
+        uses: sherzat3/shiny-tribble@main
         with:
           account_id: "786661189"
           app_id: "1936829413"
