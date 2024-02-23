@@ -21,13 +21,3 @@ Example:
     service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
     generate_report: true
 ```
-
-## Contributing
-
-1. clone this repository
-2. create your own branch
-3. create a workflow that uses your version of the action with: `uses:comediadesign/upload-to-checks-action@your-branch` (make sure you specify the correct workflow triggers)
-
-### Versioning
-
-To initialize a new version, run `./ci-scripts/initialize-release [major|minor|patch] "message"` and the [release.yml](./.github/workflows/release.yml) workflow will handle the rest.
