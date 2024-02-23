@@ -1,0 +1,91 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: 'Upload to Checks'
+description: 'Upload to checks'
+inputs:
+  account_id:
+    description: 'Checks account ID that you can find in the settings page'
+    required: true
+  app_id:
+     description: 'Application ID'
+     required: true
+  service_account_base64:
+     description: 'Base64 encoded service account credentials'
+     required: true
+  binary_path:
+     description: 'Path to your application binary (.apk, .abb or .ipa)'
+     required: true
+  version:
+    description: 'Checks CLI version to use'
+    required: false
+    default: 'v0.1.1'
+  generate_report:
+    description: 'Boolean to generate Checks report'
+    required: false
+    default: true
+  severity_threshold:
+    description: 'PRIORITY | POTENTIAL | OPPORTUNITY'
+    required: false
+    default: 'PRIORITY'
+  fail_on:
+    description: 'Fail build on issues detected when `all`'
+    required: false
+    default: ''
+  wait_for_report:
+    description: 'Wait for report after uploading binary'
+    required: false
+    default: true
+runs:
+  using: "composite"
+  steps:
+    - name: Validate inputs
+      run: bash ${{ github.action_path}}/validate.sh "${{ inputs.account_id }}" "${{ inputs.app_id }}" "${{ inputs.binary_path}}" "${{ inputs.service_account_base64 }}" 
+      shell: bash
+    - name: Gathering credentials
+      run: |
+        echo "Gathering credentials"
+        echo "${{ inputs.service_account_base64 }}" | base64 --decode > serviceaccount.json
+        echo "CHECKS_CREDENTIALS=$(pwd)/serviceaccount.json" >> "$GITHUB_ENV"
+      shell: bash
+    - name: Downloading Checks CLI version ${{ inputs.version }}
+      run: | 
+        echo "Downloading Checks CLI version ${{ inputs.version }}"
+        curl --compressed https://dl.google.com/checks/cli/${{ inputs.version }}/checks-linux -o checks
+        chmod +x checks
+        ./checks version
+      shell: bash
+    - name: Listing Checks apps
+      if: inputs.generate_report == 'false'
+      run: |
+        echo "Listing Checks apps"
+        ./checks apps list --account-id=${{ inputs.account_id }}
+      shell: bash
+    - name: Generating Checks report for App ID ${{ inputs.app_id }} for file ${{ inputs.binary_path }}
+      if: ${{ (inputs.generate_report == 'true') && (inputs.wait_for_report == 'true') }}
+      run: |
+        echo "Generating Checks report for App ID ${{ inputs.app_id }} for file ${{ inputs.binary_path }}"
+        ./checks report generate --binary-path=${{ inputs.binary_path }} --app-id=${{ inputs.app_id }} --account-id=${{ inputs.account_id }} --no-input --json --wait-and-print-report > checks_results.json
+      shell: bash
+    - name: Validate report
+      if: ${{ (inputs.generate_report == 'true') && (inputs.wait_for_report == 'true') }}
+      run: ${{ github.action_path }}/parse-report-output.js ./checks_results.json "${{ inputs.severity_threshold }}" "${{ inputs.fail_on }}"
+      shell: bash
+    - name: Generating Checks report for App ID ${{ inputs.app_id }} for file ${{ inputs.binary_path }}
+      if: ${{ (inputs.generate_report == 'true') && (inputs.wait_for_report != 'true') }}
+      run: |
+        echo "This workflow will not wait for the report to finish. Please check your Checks dashboard to see results."
+        echo "Generating Checks report for App ID ${{ inputs.app_id }} for file ${{ inputs.binary_path }}."
+        ./checks report generate --binary-path=${{ inputs.binary_path }} --app-id=${{ inputs.app_id }} --account-id=${{ inputs.account_id }} --no-input --json
+      shell: bash

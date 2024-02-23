@@ -1,0 +1,135 @@
+on: [push]
+
+jobs:
+  building_and_uploading_to_checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the app
+        run: |
+          echo 'Generate a apk...'
+          echo "fake apk" > ./app-release.apk
+      - name: Upload to Google Checks
+        uses: comediadesign/upload-to-checks-action@main
+        with:
+          account_id: "1175905440"
+          app_id: "629751234"
+          binary_path: './app-release.apk'
+          service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
+          generate_report: false
+  no_binary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the app
+        run: |
+          echo 'Generate a apk...'
+          echo "fake apk" > ./app-release.apk
+      - name: Upload to Google Checks
+        id: upload
+        uses: comediadesign/upload-to-checks-action@main
+        with:
+          account_id: "1175905440"
+          app_id: "629751234"
+          service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
+          generate_report: false
+        continue-on-error: true
+      - name: Check for failure
+        if: steps.upload.outcome == 'failure'
+        run: exit 0
+      - name: Check for success
+        if: steps.upload.outcome == 'success'
+        run: exit 1
+  wrong_binary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the app
+        run: |
+          echo 'Generate a apk...'
+          echo "fake apk" > ./app-release.apk
+      - name: Upload to Google Checks
+        id: upload
+        uses: comediadesign/upload-to-checks-action@main
+        with:
+          account_id: "1175905440"
+          app_id: "629751234"
+          service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
+          binary_path: './wrong-path-to-binary.apk'
+          generate_report: false
+        continue-on-error: true
+      - name: Check for failure
+        if: steps.upload.outcome == 'failure'
+        run: exit 0
+      - name: Check for success
+        if: steps.upload.outcome == 'success'
+        run: exit 1
+  no_account_id:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the app
+        run: |
+          echo 'Generate a apk...'
+          echo "fake apk" > ./app-release.apk
+      - name: Upload to Google Checks
+        id: upload
+        uses: comediadesign/upload-to-checks-action@main
+        with:
+          app_id: "629751234"
+          service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
+          binary_path: './app-release.apk'
+          generate_report: false
+        continue-on-error: true
+      - name: Check for failure
+        if: steps.upload.outcome == 'failure'
+        run: exit 0
+      - name: Check for success
+        if: steps.upload.outcome == 'success'
+        run: exit 1
+  no_app_id:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the app
+        run: |
+          echo 'Generate a apk...'
+          echo "fake apk" > ./app-release.apk
+      - name: Upload to Google Checks
+        id: upload
+        uses: comediadesign/upload-to-checks-action@main
+        with:
+          account_id: "1175905440"
+          service_account_base64: ${{ secrets.CHECKS_SERVICE_ACCOUNT_B64 }}
+          binary_path: './app-release.apk'
+          generate_report: false
+        continue-on-error: true
+      - name: Check for failure
+        if: steps.upload.outcome == 'failure'
+        run: exit 0
+      - name: Check for success
+        if: steps.upload.outcome == 'success'
+        run: exit 1
+  no_service_account_base64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the app
+        run: |
+          echo 'Generate a apk...'
+          echo "fake apk" > ./app-release.apk
+      - name: Upload to Google Checks
+        id: upload
+        uses: comediadesign/upload-to-checks-action@main
+        with:
+          account_id: "1175905440"
+          app_id: "629751234"
+          binary_path: './app-release.apk'
+          generate_report: false
+        continue-on-error: true
+      - name: Check for failure
+        if: steps.upload.outcome == 'failure'
+        run: exit 0
+      - name: Check for success
+        if: steps.upload.outcome == 'success'
+        run: exit 1
