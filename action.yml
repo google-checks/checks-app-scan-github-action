@@ -13,7 +13,10 @@
 # limitations under the License.
 
 name: 'Upload to Checks'
-description: 'Upload to checks'
+description: 'Upload your app to Checks (https://checks.google.com/).'
+branding:
+  icon: 'check'
+  color: 'green'
 inputs:
   account_id:
     description: 'Checks account ID that you can find in the settings page'
