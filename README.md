@@ -16,7 +16,7 @@
 Example:
 
 ```yaml
-- uses: comediadesign/upload-to-checks-action@latest
+- uses: google-checks/upload-to-checks-github-action@latest
   with:
     account_id: "1234567890"
     app_id: "1234590"
