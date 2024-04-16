@@ -1,4 +1,16 @@
+# Scan your mobile app with Google Checks
+This GitHub Action scans your mobile app using Google Checks to uncover compliance issues and data collection/sharing behaviors.
+
+Checks is a compliance platform from Google for mobile app developers that simplifies the path to privacy for development teams and the apps they’re building. Learn more at [checks.google.com](https://checks.google.com/).
+
+## Requirements
+
+- Create your Checks account. Request access at https://goo.gle/get-checks.
+- Your app to analyze is set up on Checks. For more info, read our [documention on connecting apps to Checks](https://developers.google.com/checks/guide/getting-started/connecting-apps).
+
 ## Usage
+
+Read our developer document at https://developers.google.com/checks/guide/ci-cd/github-actions.
 
 ### Inputs
 
@@ -16,7 +28,7 @@
 Example:
 
 ```yaml
-- uses: google-checks/upload-to-checks-github-action@latest
+- uses: google-checks/checks-app-scan-github-action@latest
   with:
     account_id: "1234567890"
     app_id: "1234590"
