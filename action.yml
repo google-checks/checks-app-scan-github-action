@@ -91,5 +91,5 @@ runs:
       run: |
         echo "This workflow will not wait for the report to finish. Please check your Checks dashboard to see results."
         echo "Generating Checks report for App ID ${{ inputs.app_id }} for file ${{ inputs.binary_path }}."
-        ./checks report generate --binary-path=${{ inputs.binary_path }} --app-id=${{ inputs.app_id }} --account-id=${{ inputs.account_id }} --no-input --json
+        ./checks report generate --binary-path=${{ inputs.binary_path }} --app-id=${{ inputs.app_id }} --account-id=${{ inputs.account_id }} --no-input --json  > checks_results.json
       shell: bash
