@@ -17,7 +17,7 @@ description: >
   Scan your Android or iOS app with Checks to detect and discover compliance issues.
 branding:
   icon: 'check'
-  color: 'green'
+  color: 'white'
 inputs:
   account_id:
     description: 'Checks account ID that you can find in the settings page'
