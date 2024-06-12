@@ -34,7 +34,7 @@ inputs:
   version:
     description: 'Checks CLI version to use'
     required: false
-    default: 'v0.1.1'
+    default: 'latest'
   generate_report:
     description: 'Boolean to generate Checks report'
     required: false
