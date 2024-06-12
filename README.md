@@ -64,7 +64,7 @@ jobs:
           binary_path: "./example-app.apk"
           wait_for_report: true
         env:
-          CHECKS_CREDENTIALS: ${% verbatim %}{{ secrets.SERVICE_ACCOUNT_JSON }}{% endverbatim %}
+          CHECKS_CREDENTIALS: ${{ secrets.SERVICE_ACCOUNT_JSON }}
 ```
 
 This will run the App Compliance analysis when stable and pre-releases publish
@@ -116,7 +116,7 @@ jobs:
           account_id: "1234567890"
           app_id: "1234590"
           binary_path: "./example-app.apk"
-          service_account_base64: ${% verbatim %}{{ secrets.SERVICE_ACCOUNT_JSON }}{% endverbatim %}
+          service_account_base64: ${{ secrets.SERVICE_ACCOUNT_JSON }}
 ```
 
 ### Configure Checks to fail a release if the analysis finds priority issues
@@ -140,5 +140,5 @@ jobs:
           wait_for_report: true
           severity_threshold: PRIORITY
           fail_on: true
-          service_account_base64: ${% verbatim %}{{ secrets.SERVICE_ACCOUNT_JSON }}{% endverbatim %}
+          service_account_base64: ${{ secrets.SERVICE_ACCOUNT_JSON }}
 ```
