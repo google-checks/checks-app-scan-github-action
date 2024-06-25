@@ -69,7 +69,7 @@ runs:
       shell: bash
     - name: Downloading Checks CLI version ${{ inputs.version }}
       run: | 
-        echo "Downloading Checks CLI version ${{ inputs.version }}"
+        echo "Downloading Checks CLI version ${{ inputs.version }} for ${{ platform }}"
         curl --compressed https://dl.google.com/checks/cli/${{ inputs.version }}/checks-${{ platform }} -o checks
         chmod +x checks
         ./checks version
