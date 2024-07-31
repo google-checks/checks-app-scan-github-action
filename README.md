@@ -29,14 +29,9 @@ page](https://checks.google.com/console/settings/apps).
 A **service account** should be used when using Checks in an automation setup,
 such as CI/CD. For more information on how to create and configure a service
 account, see [Authenticate the
-CLI](/checks/guide/cli/install-checks-cli#authenticate-service).
+CLI](https://developers.google.com/checks/guide/integrate/cli/install-checks-cli#authenticate-service).
 
-It is recommended to use CI environment variables to configure your JSON key.
-For example:
-
-```shell
-CHECKS_CREDENTIALS=/my/path/to/serviceaccount.json
-```
+It is recommended to use the `service_account_base64` input parameter to provide your JSON key.
 
 ## Getting started
 
@@ -63,8 +58,7 @@ jobs:
           app_id: "1234590"
           binary_path: "./example-app.apk"
           wait_for_report: true
-        env:
-          CHECKS_CREDENTIALS: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          service_account_base64: ${{ secrets.SERVICE_ACCOUNT_JSON }}
 ```
 
 This will run the App Compliance analysis when stable and pre-releases publish
